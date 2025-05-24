@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Form with Tailwind</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-200 min-h-screen p-6 flex items-center justify-center">
+  <div class="w-full max-w-5xl bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-bold text-center mb-6 text-indigo-600">User Information Form</h2>
+
+    <form id="Form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" id="fullName" placeholder="Full Name" class="border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-300" required />
+      <input type="email" id="email" placeholder="Email" class="border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-300" required />
+      <input type="text" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 rounded" />
+      <input type="text" id="education" placeholder="Education" class="border border-gray-300 p-2 rounded" />
+      <input type="text" id="skills" placeholder="Skills (comma separated)" class="border border-gray-300 p-2 rounded" />
+      <input type="text" id="experience" placeholder="Experience (e.g., 2 years)" class="border border-gray-300 p-2 rounded" />
+      <div class="md:col-span-2">
+        <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 rounded transition duration-300">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <div class="overflow-x-auto mt-10">
+      <table class="w-full border border-gray-300 text-sm text-left">
+        <thead class="bg-indigo-100">
+          <tr>
+            <th class="border px-3 py-2">#</th>
+            <th class="border px-3 py-2">Full Name</th>
+            <th class="border px-3 py-2">Email</th>
+            <th class="border px-3 py-2">Phone</th>
+            <th class="border px-3 py-2">Education</th>
+            <th class="border px-3 py-2">Skills</th>
+            <th class="border px-3 py-2">Experience</th>
+          </tr>
+        </thead>
+        <tbody id="TableBody" class="bg-white divide-y divide-gray-200"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("Form");
+    const tableBody = document.getElementById("TableBody");
+    let serial = 1;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const education = document.getElementById("education").value.trim();
+      const skills = document.getElementById("skills").value.trim();
+      const experience = document.getElementById("experience").value.trim();
+
+      const row = document.createElement("tr");
+      row.className = serial % 2 === 0 ? "bg-gray-50" : "bg-white";
+      row.innerHTML = `
+        <td class="border px-3 py-2 text-center">${serial++}</td>
+        <td class="border px-3 py-2">${name}</td>
+        <td class="border px-3 py-2">${email}</td>
+        <td class="border px-3 py-2">${phone}</td>
+        <td class="border px-3 py-2">${education}</td>
+        <td class="border px-3 py-2">${skills}</td>
+        <td class="border px-3 py-2">${experience}</td>
+      `;
+
+      tableBody.appendChild(row);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
